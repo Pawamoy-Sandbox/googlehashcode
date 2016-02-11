@@ -100,11 +100,20 @@ public class DeliveryMain {
                 }
             }
 
-            System.out.println("test");
-//            while ((line = br.readLine()) != null) {
-//                // process the line.
-//
-//            }
+            System.out.println("finished parsing");
+
+
+            int cmdCount = 0;
+            for (int i = 0; i < d; i++){
+                cmdCount += drones[i].commands.size();
+            }
+
+            for (int i = 0; i < d; i++){
+                for (Command cmd : drones[i].commands){
+                    cmd.output();
+                }
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }

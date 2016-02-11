@@ -9,5 +9,16 @@ public class Command {
     public int productType;
     public int numberOfProducts;
 
+    public Command(){
+
+    }
+
+    public void output(){
+        System.out.print(String.valueOf(type) + " ");
+        System.out.print(String.valueOf(destinationId) + " ");
+        System.out.print(String.valueOf(productType) + " ");
+        System.out.print(String.valueOf(numberOfProducts) + " ");
+    }
+
 
 }
