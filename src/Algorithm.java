@@ -1,7 +1,3 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Vector;
-
 /**
  * Created by pallamidessi on 11/02/16.
  */
@@ -18,12 +14,13 @@ public class Algorithm {
         }
 
         int result = 0;
+        int[] items = new int[itemsType];
 
-        for (int i = 0; i < o.items.size(); i++) {
-            boolean missing = false;
+        for (int type = 0; type < itemsType; type++){
+            items[type] = getItemsFromOrder(o, type);
 
             if (missing) {
-                //turnCount += drone.load(x, y, );
+                //turnCount += drone.load();
             }
         }
 
@@ -88,5 +85,5 @@ public class Algorithm {
 
         greedyDescent(drones, orders, maxTurn);
     }
-    
+
 }
