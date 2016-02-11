@@ -115,6 +115,13 @@ public class Algorithm {
 
         }
 
+        if (writeMode) {
+            if (turnCount > maxTurn) {
+                return -1;
+            }
+            return turnCount;
+        }
+
         result = (maxTurn - turnCount) / maxTurn * 100;
         return result;
     }
@@ -128,8 +135,9 @@ public class Algorithm {
 
         for(Drone d : drones) {
             currentDrone++;
+            currentOrder = 0;
             for(Order o : orders) {
-                int res = estimateOrderCost(d, o, currentOrder, warehouses, itemsType, 0, maxTurn, true);
+                int res = estimateOrderCost(d, o, currentOrder, warehouses, itemsType, 0, maxTurn, false);
                 
                 currentOrder++;
 
@@ -167,6 +175,7 @@ public class Algorithm {
 
         for(Drone d : drones) {
             bestDrone++;
+            currentOrder = 0;
             for(Order o : orders) {
                 if (!o.isDone) {
                     int res = estimateOrderCost(d, o, currentOrder, warehouses, itemsType, 0, maxTurn, false);
@@ -185,7 +194,7 @@ public class Algorithm {
         int nbTurn = estimateOrderCost(drones.get(bestDrone), orders.get(bestOrder), currentOrder, warehouses, itemsType, 0, maxTurn, true);
 
         Drone tmpDrone = drones.get(bestDrone);
-        tmpDrone.turn = nbTurn;
+        tmpDrone.turn += nbTurn;
 
         drones.set(bestDrone, tmpDrone);
 
