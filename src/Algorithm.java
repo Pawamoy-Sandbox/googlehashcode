@@ -45,11 +45,11 @@ public class Algorithm {
                 continue;
 
             int wanted = items[type];
+            int numbb = 0;
 
             while (wanted > 0) {
                 for (int w = 0; w < warehouses.length; w++){
                     if (warehouses[w].items.get(type) != 0){
-
 
                         turnCount += dist(currentX, currentY, warehouses[w].x, warehouses[w].y); //going to warehouse
                         turnCount++; //loading
@@ -58,13 +58,20 @@ public class Algorithm {
                         currentY = warehouses[w].y;
                         d.isBusy = true;
 
-                        if (writeMode){
-                            d.
-                        }
-
                         wanted -= warehouses[w].items.get(type);
 
                         if (wanted <= 0){
+
+                            if (writeMode){
+                                warehouses[w].items.set(type, 0);
+                            }
+
+                            Command c = new Command();
+                            c.type = 'L';
+                            c.destinationId = w;
+                            c.productType = type;
+                            c.numberOfProducts = numbb;
+
                             break;
                         }
                     }
