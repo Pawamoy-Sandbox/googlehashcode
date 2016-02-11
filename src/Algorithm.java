@@ -1,12 +1,30 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 /**
  * Created by pallamidessi on 11/02/16.
  */
 public class Algorithm {
-    public static int estimateOrderCost (Drone d, Order o, int currentTurn, int maxTurn, boolean writeMode) {
+
+    public static int getItemsFromOrder(Order o, int type){
+        int sum = 0;
+        for (int obj : o.items){
+            if (obj == type)
+                sum++;
+        }
+        return sum;
+    }
+
+    public static int dist(int x1, int y1, int x2, int y2){
+        double dx = x2 - x1;
+        double dy = y2 - y1;
+        double d = Math.sqrt(dx*dx + dy*dy);
+
+        return (int)Math.ceil(d);
+    }
+
+    public static int estimateOrderCost(Drone d, Order o, Warehouse[] warehouses, int itemsType, int currentTurn, int maxTurn, boolean writeMode) {
+
         int turnCount = 0;
         List<Command> commands = new ArrayList<>();
         int currentX = d.x;
@@ -18,27 +36,48 @@ public class Algorithm {
         }
 
         int result = 0;
+        int[] items = new int[itemsType];
 
-        for (int i = 0; i < o.items.size(); i++) {
-            boolean missing = false;
+        for (int type = 0; type < itemsType; type++){
+            items[type] = getItemsFromOrder(o, type);
 
-            if (missing) {
-                //turnCount += drone.load(x, y, );
+            if (items[type] == 0)
+                continue;
+
+            int wanted = items[type];
+
+            while (wanted > 0) {
+                for (int w = 0; w < warehouses.length; w++){
+                    if (warehouses[w].items.get(type) != 0){
+
+
+                        turnCount += dist(d.x, d.y, warehouses[w].x, warehouses[w].y); //going to warehouse
+                        turnCount++; //loading
+
+                        wanted -= warehouses[w].items.get(type);
+
+                        if (wanted <= 0){
+                            break;
+                        }
+                    }
+                }
             }
+
         }
+
 
         result = (maxTurn - turnCount) / maxTurn * 100;
         return result;
     }
 
-    public void run( List<Drone> drones, List<Order> orders, int maxTurn) {
+    public void run( List<Drone> drones, List<Order> orders, Warehouse[] warehouses, int itemsType, int maxTurn) {
         int max = 0;
         int bestDrone = 0;
         int bestOrder = 0;
 
         for(Drone d : drones) {
             for(Order o : orders) {
-                int res = estimateOrderCost(d, o, 0, maxTurn, false);
+                int res = estimateOrderCost(d, o, warehouses, itemsType, 0, maxTurn, false);
 
                 if (res > max) {
                     bestDrone = 0;
@@ -59,7 +98,7 @@ public class Algorithm {
         for(Drone d : drones) {
             for(Order o : orders) {
                 if (!o.isDone) {
-                    int res = estimateOrderCost(d, o, 0, maxTurn, false);
+                    int res = estimateOrderCost(d, o, warehouses, itemsType, 0, maxTurn, false);
 
                     if (res > max) {
                         bestDrone = 0;
@@ -70,7 +109,7 @@ public class Algorithm {
             }
         }
 
-        int nbTurn = estimateOrderCost(drones.get(bestDrone), orders.get(bestOrder), 0, maxTurn, true);
+        int nbTurn = estimateOrderCost(drones.get(bestDrone), orders.get(bestOrder), warehouses, itemsType, 0, maxTurn, true);
 
         Drone tmpDrone = drones.get(bestDrone);
         tmpDrone.turn = nbTurn;
@@ -86,7 +125,7 @@ public class Algorithm {
             return -1;
         }
 
-        return 0;
+	return 0;
     }
 
 }
