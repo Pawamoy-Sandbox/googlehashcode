@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
 
 public class DeliveryMain {
     public static void main(String argv[]) {
@@ -102,7 +103,8 @@ public class DeliveryMain {
 
             System.out.println("finished parsing");
 
-
+            Algorithm.run(Arrays.asList(drones), Arrays.asList(orders), warehouses, productTypeNumber, t);
+            /*
             int cmdCount = 0;
             for (int i = 0; i < d; i++){
                 cmdCount += drones[i].commands.size();
@@ -117,7 +119,7 @@ public class DeliveryMain {
                     System.out.print("\n");
                 }
             }
-
+            */
         } catch (IOException e) {
             e.printStackTrace();
         }

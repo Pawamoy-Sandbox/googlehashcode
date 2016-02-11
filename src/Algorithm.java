@@ -109,7 +109,7 @@ public class Algorithm {
         return result;
     }
 
-    public void run( List<Drone> drones, List<Order> orders, Warehouse[] warehouses, int itemsType, int maxTurn) {
+    public static void run( List<Drone> drones, List<Order> orders, Warehouse[] warehouses, int itemsType, int maxTurn) {
         int max = 0;
         int bestDrone = 0;
         int bestOrder = 0;
@@ -134,7 +134,7 @@ public class Algorithm {
 
     }
 
-    public int greedyDescent(List<Drone> drones, List<Order> orders, Warehouse[] warehouses, int itemsType, int maxTurn) {
+    public static int greedyDescent(List<Drone> drones, List<Order> orders, Warehouse[] warehouses, int itemsType, int maxTurn) {
         int max = -1;
         int bestDrone = 0;
         int bestOrder = 0;
