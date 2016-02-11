@@ -23,7 +23,7 @@ public class Algorithm {
         return (int)Math.ceil(d);
     }
 
-    public static int estimateOrderCost(Drone d, Order o, Warehouse[] warehouses, int itemsType, int currentTurn, int maxTurn, boolean writeMode) {
+    public static int estimateOrderCost(Drone d, Order o, int oindex, Warehouse[] warehouses, int itemsType, int currentTurn, int maxTurn, boolean writeMode) {
 
         int turnCount = 0;
         List<Command> commands = new ArrayList<>();
@@ -45,7 +45,7 @@ public class Algorithm {
                 continue;
 
             int wanted = items[type];
-            int numbb = 0;
+            int currentLoad = wanted;
 
             while (wanted > 0) {
                 for (int w = 0; w < warehouses.length; w++){
@@ -58,19 +58,26 @@ public class Algorithm {
                         currentY = warehouses[w].y;
                         d.isBusy = true;
 
-                        wanted -= warehouses[w].items.get(type);
+                        if (warehouses[w].items.get(type) <= wanted){
+                            currentLoad = warehouses[w].items.get(type);
+                            wanted -= currentLoad;
+                        }
+                        else
+                        {
+                            currentLoad = wanted;
+                            wanted = 0;
+                        }
+
+                        warehouses[w].items.set(type, warehouses[w].items.get(type)-currentLoad);
 
                         if (wanted <= 0){
-
                             if (writeMode){
-                                warehouses[w].items.set(type, 0);
+                                Command c = new Command();
+                                c.type = 'L';
+                                c.destinationId = w;
+                                c.productType = type;
+                                c.numberOfProducts = currentLoad;
                             }
-
-                            Command c = new Command();
-                            c.type = 'L';
-                            c.destinationId = w;
-                            c.productType = type;
-                            c.numberOfProducts = numbb;
 
                             break;
                         }
@@ -79,6 +86,23 @@ public class Algorithm {
             }
 
         }
+
+        turnCount += dist(currentX, currentY, o.x, o.y); //going to the order
+
+        for (int type = 0; type < itemsType; type++) {
+            items[type] = getItemsFromOrder(o, type);
+            turnCount++; //loading
+
+            if (writeMode){
+                Command c = new Command();
+                c.type = 'D';
+                c.destinationId = oindex;
+                c.productType = type;
+                c.numberOfProducts = items[type];
+            }
+        }
+
+
 
 
         result = (maxTurn - turnCount) / maxTurn * 100;
