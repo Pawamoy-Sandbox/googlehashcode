@@ -8,6 +8,7 @@ public class Drone{
 
     public int nextX;
     public int nextY;
+    public int turn;
 
     public boolean isBusy;
     public List<Command> commands;
