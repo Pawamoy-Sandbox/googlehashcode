@@ -51,8 +51,16 @@ public class Algorithm {
                     if (warehouses[w].items.get(type) != 0){
 
 
-                        turnCount += dist(d.x, d.y, warehouses[w].x, warehouses[w].y); //going to warehouse
+                        turnCount += dist(currentX, currentY, warehouses[w].x, warehouses[w].y); //going to warehouse
                         turnCount++; //loading
+
+                        currentX = warehouses[w].x;
+                        currentY = warehouses[w].y;
+                        d.isBusy = true;
+
+                        if (writeMode){
+                            d.
+                        }
 
                         wanted -= warehouses[w].items.get(type);
 
