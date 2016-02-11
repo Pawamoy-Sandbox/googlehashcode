@@ -5,16 +5,16 @@ Section 1
 ---------
 
 Parameters
-Rows Columns
+Rows Columns Drones MaxTurns MaxLoad
 
 Section 2
 ---------
 
 Number of product type
-Number of product for each type
+Weights for each product type
 
 P
-P1 P2 ... PN
+W1 W2 ... WN
 
 Section 3
 ---------
