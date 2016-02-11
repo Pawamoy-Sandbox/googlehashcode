@@ -101,11 +101,11 @@ public class Algorithm {
                 }
             }
         }
-        while (greedyDescent(drones, orders, maxTurn) != -1) {}
+        while (greedyDescent(drones, orders, warehouses, itemsType, maxTurn) != -1) {}
 
     }
 
-    public int greedyDescent(List<Drone> drones, List<Order> orders, int maxTurn) {
+    public int greedyDescent(List<Drone> drones, List<Order> orders, Warehouse[] warehouses, int itemsType, int maxTurn) {
         int max = -1;
         int bestDrone = 0;
         int bestOrder = 0;
