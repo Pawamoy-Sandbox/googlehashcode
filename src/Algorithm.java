@@ -135,7 +135,9 @@ public class Algorithm {
         for(Drone d : drones) {
             currentOrder = 0;
             for(Order o : orders) {
-                int res = estimateOrderCost(d, o, currentOrder, warehouses, itemsType, 0, maxTurn, false);
+                Warehouse[] ww = new Warehouse[warehouses.length];
+                System.arraycopy( warehouses, 0, ww, 0, warehouses.length );
+                int res = estimateOrderCost(d, o, currentOrder, ww, itemsType, 0, maxTurn, false);
                 
                 if (res > max) {
                     bestDrone = currentOrder;
