@@ -10,7 +10,7 @@ public class Drone{
     public int nextY;
 
     public boolean isBusy;
-    public List<Command> currentCommand;
+    public List<Command> commands;
 
     public int maxWeight;
 
@@ -18,7 +18,7 @@ public class Drone{
 
 
     public Drone(int maxw){
-        currentCommand = new ArrayList<>();
+        commands = new ArrayList<>();
         inventory = new ArrayList<>();
         isBusy = false;
 
