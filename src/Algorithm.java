@@ -47,11 +47,11 @@ public class Algorithm {
                 }
             }
         }
+        while (greedyDescent(drones, orders, maxTurn) != -1) {}
 
-        greedyDescent(drones, orders, maxTurn);
     }
 
-    public void greedyDescent(List<Drone> drones, List<Order> orders, int maxTurn) {
+    public int greedyDescent(List<Drone> drones, List<Order> orders, int maxTurn) {
         int max = -1;
         int bestDrone = 0;
         int bestOrder = 0;
@@ -83,10 +83,10 @@ public class Algorithm {
         orders.set(bestOrder, tmpOrder);
 
         if (max == -1) {
-            return;
+            return -1;
         }
 
-        greedyDescent(drones, orders, maxTurn);
+        return 0;
     }
-    
+
 }
