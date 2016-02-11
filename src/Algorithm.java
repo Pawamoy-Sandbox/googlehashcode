@@ -39,7 +39,6 @@ public class Algorithm {
             currentY = d.nextX;
         }
 
-        int result = 0;
         int[] items = new int[itemsType];
 
         for (int type = 0; type < itemsType; type++){
@@ -122,8 +121,8 @@ public class Algorithm {
             return turnCount;
         }
 
-        result = (maxTurn - turnCount) / maxTurn * 100;
-        return result;
+        double result = ((double)(maxTurn - turnCount) / (double) maxTurn) * 100.0f;
+        return (int) result;
     }
 
     public static void run( List<Drone> drones, List<Order> orders, Warehouse[] warehouses, int itemsType, int maxTurn) {
@@ -134,19 +133,18 @@ public class Algorithm {
         int currentOrder = 0;
 
         for(Drone d : drones) {
-            currentDrone++;
             currentOrder = 0;
             for(Order o : orders) {
                 int res = estimateOrderCost(d, o, currentOrder, warehouses, itemsType, 0, maxTurn, false);
                 
-                currentOrder++;
-
                 if (res > max) {
                     bestDrone = currentOrder;
                     bestOrder = currentDrone;
                     max = res;
                 }
+                currentOrder++;
             }
+            currentDrone++;
         }
 
         int nbTurn = estimateOrderCost(drones.get(bestDrone), orders.get(bestOrder), currentOrder, warehouses, itemsType, 0, maxTurn, true);
@@ -174,7 +172,6 @@ public class Algorithm {
         int currentOrder = 0;
 
         for(Drone d : drones) {
-            bestDrone++;
             currentOrder = 0;
             for(Order o : orders) {
                 if (!o.isDone) {
@@ -189,6 +186,7 @@ public class Algorithm {
                     }
                 }
             }
+            bestDrone++;
         }
 
         int nbTurn = estimateOrderCost(drones.get(bestDrone), orders.get(bestOrder), currentOrder, warehouses, itemsType, 0, maxTurn, true);
