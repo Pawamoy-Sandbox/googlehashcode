@@ -113,17 +113,19 @@ public class Algorithm {
         int max = 0;
         int bestDrone = 0;
         int bestOrder = 0;
+        int currentDrone = 0;
+        int currentOrder = 0;
 
         for(Drone d : drones) {
-            bestDrone++;
+            currentDrone++;
             for(Order o : orders) {
-                int res = estimateOrderCost(d, o, warehouses, itemsType, 0, maxTurn, false);
+                int res = estimateOrderCost(d, o, currentOrder, warehouses, itemsType, 0, maxTurn, false);
                 
-                bestOrder++;
+                currentOrder++;
 
                 if (res > max) {
-                    bestDrone = 0;
-                    bestOrder = 0;
+                    bestDrone = currentOrder;
+                    bestOrder = currentDrone;
                     max = res;
                 }
             }
@@ -137,24 +139,27 @@ public class Algorithm {
         int bestDrone = 0;
         int bestOrder = 0;
 
+        int currentDrone = 0;
+        int currentOrder = 0;
+
         for(Drone d : drones) {
             bestDrone++;
             for(Order o : orders) {
                 if (!o.isDone) {
-                    int res = estimateOrderCost(d, o, warehouses, itemsType, 0, maxTurn, false);
+                    int res = estimateOrderCost(d, o, currentOrder, warehouses, itemsType, 0, maxTurn, false);
 
                     bestOrder++;
 
                     if (res > max) {
-                        bestDrone = 0;
-                        bestOrder = 0;
+                        bestDrone = currentDrone;
+                        bestOrder = currentOrder;
                         max = res;
                     }
                 }
             }
         }
 
-        int nbTurn = estimateOrderCost(drones.get(bestDrone), orders.get(bestOrder), warehouses, itemsType, 0, maxTurn, true);
+        int nbTurn = estimateOrderCost(drones.get(bestDrone), orders.get(bestOrder), currentOrder, warehouses, itemsType, 0, maxTurn, true);
 
         Drone tmpDrone = drones.get(bestDrone);
         tmpDrone.turn = nbTurn;
