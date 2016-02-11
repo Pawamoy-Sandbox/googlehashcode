@@ -30,6 +30,12 @@ public class DeliveryMain {
             t = Integer.parseInt(split[3]);
             p = Integer.parseInt(split[4]);
 
+            Drone[] drones = new Drone[d];
+
+            for (int i = 0; i < d; i++){
+                drones[i] = new Drone(p);
+            }
+
 
             // second line, number of product type
             line = br.readLine();
