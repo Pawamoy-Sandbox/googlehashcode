@@ -91,8 +91,11 @@ public class Algorithm {
         int bestOrder = 0;
 
         for(Drone d : drones) {
+            bestDrone++;
             for(Order o : orders) {
                 int res = estimateOrderCost(d, o, warehouses, itemsType, 0, maxTurn, false);
+                
+                bestOrder++;
 
                 if (res > max) {
                     bestDrone = 0;
@@ -111,9 +114,12 @@ public class Algorithm {
         int bestOrder = 0;
 
         for(Drone d : drones) {
+            bestDrone++;
             for(Order o : orders) {
                 if (!o.isDone) {
                     int res = estimateOrderCost(d, o, warehouses, itemsType, 0, maxTurn, false);
+
+                    bestOrder++;
 
                     if (res > max) {
                         bestDrone = 0;
