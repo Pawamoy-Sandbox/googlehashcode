@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -136,7 +137,7 @@ public class Algorithm {
             currentOrder = 0;
             for(Order o : orders) {
                 Warehouse[] ww = new Warehouse[warehouses.length];
-                System.arraycopy( warehouses, 0, ww, 0, warehouses.length );
+                ww = Arrays.copyOf(warehouses, warehouses.length);
                 int res = estimateOrderCost(d, o, currentOrder, ww, itemsType, 0, maxTurn, false);
                 
                 if (res > max) {
@@ -179,13 +180,12 @@ public class Algorithm {
                 if (!o.isDone) {
                     int res = estimateOrderCost(d, o, currentOrder, warehouses, itemsType, 0, maxTurn, false);
 
-                    bestOrder++;
-
                     if (res > max) {
                         bestDrone = currentDrone;
                         bestOrder = currentOrder;
                         max = res;
                     }
+                    bestOrder++;
                 }
             }
             bestDrone++;
