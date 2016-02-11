@@ -108,9 +108,13 @@ public class DeliveryMain {
                 cmdCount += drones[i].commands.size();
             }
 
+            System.out.println(cmdCount);
+
             for (int i = 0; i < d; i++){
                 for (Command cmd : drones[i].commands){
+                    System.out.print(i + " ");
                     cmd.output();
+                    System.out.print("\n");
                 }
             }
 
