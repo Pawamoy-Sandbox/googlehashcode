@@ -130,6 +130,19 @@ public class Algorithm {
                 }
             }
         }
+
+        int nbTurn = estimateOrderCost(drones.get(bestDrone), orders.get(bestOrder), currentOrder, warehouses, itemsType, 0, maxTurn, true);
+
+        Drone tmpDrone = drones.get(bestDrone);
+        tmpDrone.turn = nbTurn;
+
+        drones.set(bestDrone, tmpDrone);
+
+        Order tmpOrder = orders.get(bestDrone);
+        tmpDrone.turn = nbTurn;
+
+        orders.set(bestOrder, tmpOrder);
+
         while (greedyDescent(drones, orders, warehouses, itemsType, maxTurn) != -1) {}
 
     }
