@@ -27,6 +27,10 @@ public class Algorithm {
 
         int turnCount = 0;
         List<Command> commands = new ArrayList<>();
+
+        d.x = warehouses[0].x;
+        d.y = warehouses[0].y;
+
         int currentX = d.x;
         int currentY = d.y;
 
@@ -77,6 +81,8 @@ public class Algorithm {
                                 c.destinationId = w;
                                 c.productType = type;
                                 c.numberOfProducts = currentLoad;
+                                c.output();
+                                System.out.print('\n');
                             }
 
                             break;
@@ -91,19 +97,23 @@ public class Algorithm {
 
         for (int type = 0; type < itemsType; type++) {
             items[type] = getItemsFromOrder(o, type);
-            turnCount++; //loading
 
-            if (writeMode){
-                Command c = new Command();
-                c.type = 'D';
-                c.destinationId = oindex;
-                c.productType = type;
-                c.numberOfProducts = items[type];
+            if (items[type] != 0){
+                turnCount++; //loading
+
+                if (writeMode){
+                    Command c = new Command();
+                    c.type = 'D';
+                    c.destinationId = oindex;
+                    c.productType = type;
+                    c.numberOfProducts = items[type];
+                    c.output();
+                    System.out.print('\n');
+                }
             }
+
+
         }
-
-
-
 
         result = (maxTurn - turnCount) / maxTurn * 100;
         return result;
@@ -119,7 +129,7 @@ public class Algorithm {
         for(Drone d : drones) {
             currentDrone++;
             for(Order o : orders) {
-                int res = estimateOrderCost(d, o, currentOrder, warehouses, itemsType, 0, maxTurn, false);
+                int res = estimateOrderCost(d, o, currentOrder, warehouses, itemsType, 0, maxTurn, true);
                 
                 currentOrder++;
 

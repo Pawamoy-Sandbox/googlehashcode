@@ -15,7 +15,7 @@ public class DeliveryMain {
         int t = 0;
         int p = 0;
 
-        String filename = "schlepp.in";
+        String filename = "busy_day.in";
 
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
             String line;
