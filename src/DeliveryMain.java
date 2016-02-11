@@ -2,9 +2,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-/**
- * Created by pawantu on 11/02/16.
- */
 public class DeliveryMain {
     public static void main(String argv[]) {
 
@@ -34,6 +31,70 @@ public class DeliveryMain {
             p = Integer.parseInt(split[4]);
 
 
+            // second line, number of product type
+            line = br.readLine();
+            int productTypeNumber = Integer.parseInt(line);
+            int[] productTypeWeight = new int[productTypeNumber];
+
+            // weights of product type
+            line = br.readLine();
+            split = line.split(" ");
+
+            for (int i = 0; i < productTypeNumber; i++){
+                productTypeWeight[i] = Integer.parseInt(split[i]);
+            }
+
+
+            //
+            line = br.readLine();
+            int warehouseNumber = Integer.parseInt(line);
+            Warehouse[] warehouses = new Warehouse[warehouseNumber];
+
+            for (int i = 0; i < warehouseNumber; i++){
+                //
+                warehouses[i] = new Warehouse();
+
+                line = br.readLine();
+                split = line.split(" ");
+
+                warehouses[i].x = Integer.parseInt(split[0]);
+                warehouses[i].y = Integer.parseInt(split[1]);
+
+                line = br.readLine();
+                split = line.split(" ");
+
+                for (int j = 0; j < productTypeNumber; j++){
+                    warehouses[i].items.add(Integer.parseInt(split[j]));
+                }
+            }
+
+
+            line = br.readLine();
+            int orderNumber = Integer.parseInt(line);
+            Order[] orders = new Order[orderNumber];
+
+            for (int i = 0; i < orderNumber; i++){
+                //
+                orders[i] = new Order();
+
+                line = br.readLine();
+                split = line.split(" ");
+
+                orders[i].x = Integer.parseInt(split[0]);
+                orders[i].y = Integer.parseInt(split[1]);
+
+                line = br.readLine();
+                orders[i].noOfItems = Integer.parseInt(line);
+
+                line = br.readLine();
+                split = line.split(" ");
+
+                for (int j = 0; j < orders[i].noOfItems; j++){
+                    orders[i].items.add(Integer.parseInt(split[j]));
+                }
+            }
+
+            System.out.println("test");
 //            while ((line = br.readLine()) != null) {
 //                // process the line.
 //
