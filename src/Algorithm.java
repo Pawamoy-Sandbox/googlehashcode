@@ -137,7 +137,19 @@ public class Algorithm {
             currentOrder = 0;
             for(Order o : orders) {
                 Warehouse[] ww = new Warehouse[warehouses.length];
-                ww = Arrays.copyOf(warehouses, warehouses.length);
+
+                int i = 0;
+
+                for (Warehouse w : warehouses) {
+                    ww[i] = new Warehouse();
+                    ww[i].x = w.x;
+                    ww[i].x = w.y;
+                    for (int j = 0; j < w.items.size(); j++){
+                        ww[i].items.add(w.items.get(j));
+                    }
+                    i++;
+                }
+
                 int res = estimateOrderCost(d, o, currentOrder, ww, itemsType, 0, maxTurn, false);
                 
                 if (res > max) {
